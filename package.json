@@ -1,0 +1,110 @@
+{
+  "name": "controle-gastos",
+  "version": "1.0.0",
+  "description": "Aplicativo desktop para controle de gastos pessoais com interface moderna e salvamento automático",
+  "main": "main.js",
+  "homepage": "https://github.com/michelmanzatotebar/controle-gastos",
+  "author": {
+    "name": "michelmanzatotebar",
+    "email": "micheltebar22@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/michelmanzatotebar/controle-gastos.git"
+  },
+  "bugs": {
+    "url": "https://github.com/michelmanzatotebar/controle-gastos/issues"
+  },
+  "keywords": [
+    "gastos",
+    "financas",
+    "controle",
+    "desktop",
+    "electron",
+    "orcamento",
+    "dinheiro",
+    "economia"
+  ],
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dev": "electron . --dev",
+    "build": "electron-builder",
+    "dist": "electron-builder --publish=never",
+    "release": "electron-builder --publish=always",
+    "pack": "electron-builder --dir",
+    "postinstall": "electron-builder install-app-deps"
+  },
+  "devDependencies": {
+    "electron": "^27.0.0",
+    "electron-builder": "^24.6.4"
+  },
+  "build": {
+    "appId": "com.controle-gastos.app",
+    "productName": "Controle de Gastos",
+    "copyright": "Copyright © 2025 ${author}",
+    "directories": {
+      "output": "dist",
+      "buildResources": "assets"
+    },
+    "files": [
+      "**/*",
+      "!**/node_modules/*/{CHANGELOG.md,README.md,README,readme.md,readme}",
+      "!**/node_modules/*/{test,__tests__,tests,powered-test,example,examples}",
+      "!**/node_modules/*.d.ts",
+      "!**/node_modules/.bin",
+      "!**/*.{iml,o,hprof,orig,pyc,pyo,rbc,swp,csproj,sln,xproj}",
+      "!.editorconfig",
+      "!**/._*",
+      "!**/{.DS_Store,.git,.hg,.svn,CVS,RCS,SCCS,.gitignore,.gitattributes}",
+      "!**/{__pycache__,thumbs.db,.flowconfig,.idea,.vs,.nyc_output}",
+      "!**/{appveyor.yml,.travis.yml,circle.yml}",
+      "!**/{npm-debug.log,yarn.lock,.yarn-integrity,.yarn-metadata.json}",
+      "!dist",
+      "!docs",
+      "!.github"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.ico",
+      "publisherName": "michelmanzatotebar",
+      "requestedExecutionLevel": "asInvoker"
+    },
+    "linux": {
+      "target": [
+        {
+          "target": "AppImage",
+          "arch": ["x64"]
+        }
+      ],
+      "icon": "assets/icon.png",
+      "category": "Office"
+    },
+    "mac": {
+      "target": [
+        {
+          "target": "dmg",
+          "arch": ["x64", "arm64"]
+        }
+      ],
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.finance"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "Controle de Gastos"
+    }
+  },
+  "engines": {
+    "node": ">=16.0.0",
+    "npm": ">=8.0.0"
+  }
+}

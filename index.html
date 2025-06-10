@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Controle de Gastos - Junho 2025</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>💰 Controle de Gastos</h1>
+            <div class="month-selector">
+                <select id="monthSelect">
+                    <option value="2025-01">Janeiro 2025</option>
+                    <option value="2025-02">Fevereiro 2025</option>
+                    <option value="2025-03">Março 2025</option>
+                    <option value="2025-04">Abril 2025</option>
+                    <option value="2025-05">Maio 2025</option>
+                    <option value="2025-06" selected>Junho 2025</option>
+                    <option value="2025-07">Julho 2025</option>
+                    <option value="2025-08">Agosto 2025</option>
+                    <option value="2025-09">Setembro 2025</option>
+                    <option value="2025-10">Outubro 2025</option>
+                    <option value="2025-11">Novembro 2025</option>
+                    <option value="2025-12">Dezembro 2025</option>
+                </select>
+            </div>
+            <p id="monthDescription">Organize suas finanças mensais</p>
+        </div>
+        
+        <div class="main-content">
+            <div>
+                <div class="form-section">
+                    <h3>📝 Adicionar Gasto</h3>
+                    <form id="gastoForm">
+                        <div class="form-group">
+                            <label for="descricao">Descrição:</label>
+                            <input type="text" id="descricao" placeholder="Ex: Supermercado, Conta de luz..." required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="valor">Valor (R$):</label>
+                            <input type="number" id="valor" step="0.01" placeholder="0,00" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="categoria">Categoria:</label>
+                            <select id="categoria" required>
+                                <option value="">Selecione uma categoria</option>
+                                <option value="Moradia">🏠 Moradia</option>
+                                <option value="Alimentação">🍽️ Alimentação</option>
+                                <option value="Transporte">🚗 Transporte</option>
+                                <option value="Contas Fixas">📱 Contas Fixas</option>
+                                <option value="Faturas">💳 Faturas</option>
+                                <option value="Saúde">🏥 Saúde</option>
+                                <option value="Lazer">🎮 Lazer</option>
+                                <option value="Roupas">👕 Roupas</option>
+                                <option value="Educação">📚 Educação</option>
+                                <option value="Outros">📦 Outros</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="status">Status:</label>
+                            <select id="status" required>
+                                <option value="Pago">✅ Já Pago</option>
+                                <option value="Pendente">⏳ Pendente</option>
+                                <option value="Previsto">📅 Previsto</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" class="btn">Adicionar Gasto</button>
+                    </form>
+                </div>
+                
+                <div id="gastosList" class="gastos-list"></div>
+            </div>
+            
+            <div>
+                <div class="summary">
+                    <h3>📊 Resumo Financeiro</h3>
+                    <div class="month-info">
+                        <span id="currentMonth">Junho 2025</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>💳 Gastos Pagos:</span>
+                        <span id="totalPago">R$ 0,00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>⏳ Gastos Pendentes:</span>
+                        <span id="totalPendente">R$ 0,00</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>📅 Gastos Previstos:</span>
+                        <span id="totalPrevisto">R$ 0,00</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>💰 Total:</span>
+                        <span id="totalGeral">R$ 0,00</span>
+                    </div>
+                </div>
+                
+                <div class="form-section" style="margin-top: 20px;">
+                    <h3>📈 Por Categoria</h3>
+                    <div id="categoriesGrid" class="categories-grid"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>✏️ Editar Gasto</h3>
+                <button class="close" onclick="fecharModalEdicao()">&times;</button>
+            </div>
+            
+            <form id="editForm">
+                <div class="form-group">
+                    <label for="editDescricao">Descrição:</label>
+                    <input type="text" id="editDescricao" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editValor">Valor (R$):</label>
+                    <input type="number" id="editValor" step="0.01" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editCategoria">Categoria:</label>
+                    <select id="editCategoria" required>
+                        <option value="">Selecione uma categoria</option>
+                        <option value="Moradia">🏠 Moradia</option>
+                        <option value="Alimentação">🍽️ Alimentação</option>
+                        <option value="Transporte">🚗 Transporte</option>
+                        <option value="Contas Fixas">📱 Contas Fixas</option>
+                        <option value="Faturas">💳 Faturas</option>
+                        <option value="Saúde">🏥 Saúde</option>
+                        <option value="Lazer">🎮 Lazer</option>
+                        <option value="Roupas">👕 Roupas</option>
+                        <option value="Educação">📚 Educação</option>
+                        <option value="Outros">📦 Outros</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editStatus">Status:</label>
+                    <select id="editStatus" required>
+                        <option value="Pago">✅ Já Pago</option>
+                        <option value="Pendente">⏳ Pendente</option>
+                        <option value="Previsto">📅 Previsto</option>
+                    </select>
+                </div>
+                
+                <div style="display: flex; gap: 10px; margin-top: 25px;">
+                    <button type="submit" class="btn" style="background: linear-gradient(135deg, #27ae60, #2ecc71);">
+                        ✅ Salvar Alterações
+                    </button>
+                    <button type="button" onclick="fecharModalEdicao()" class="btn" style="background: linear-gradient(135deg, #95a5a6, #7f8c8d);">
+                        ❌ Cancelar
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
